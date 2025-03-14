@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Conversion Program</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Temperature Conversion Program</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="celsius">Celsius:</label>
+                <input type="number" id="celsius" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="fahrenheit">Fahrenheit:</label>
+                <input type="number" id="fahrenheit" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <button class="btn btn-primary" id="c-to-f">C to F</button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary" id="f-to-c">F to C</button>
+            </div>
+        </div>
+        <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="error-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script>
+        const celsiusInput = document.getElementById('celsius');
+        const fahrenheitInput = document.getElementById('fahrenheit');
+        const cToFButton = document.getElementById('c-to-f');
+        const fToCButton = document.getElementById('f-to-c');
+        const errorModal = document.getElementById('error-modal');
+        const errorMessage = document.getElementById('error-message');
+
+        cToFButton.addEventListener('click', () => {
+            const celsius = parseFloat(celsiusInput.value);
+            if (isNaN(celsius)) {
+                errorMessage.textContent = 'Please enter a valid Celsius temperature.';
+                bootstrap.Modal.getOrCreateInstance(errorModal).show();
+                return;
+            }
+            const fahrenheit = celsius * 9 / 5 + 32;
+            fahrenheitInput.value = fahrenheit.toFixed(2);
+        });
+
+        fToCButton.addEventListener('click', () => {
+            const fahrenheit = parseFloat(fahrenheitInput.value);
+            if (isNaN(fahrenheit)) {
+                errorMessage.textContent = 'Please enter a valid Fahrenheit temperature.';
+                bootstrap.Modal.getOrCreateInstance(errorModal).show();
+                return;
+            }
+            const celsius = (fahrenheit - 32) * 5 / 9;
+            celsiusInput.value = celsius.toFixed(2);
+        });
+    </script>
+</body>
+</html>
